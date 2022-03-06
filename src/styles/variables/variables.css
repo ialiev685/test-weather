@@ -1,0 +1,8 @@
+:root {
+  --color-white: #ffffff;
+  --color-purple: rgb(107, 107, 233);
+  --color-silver: rgb(161, 161, 172);
+  --color-silver-light: rgb(212, 212, 212);
+  --color-red: rgb(255, 0, 0);
+  --color-shadow: rgba(34, 60, 80, 0.2);
+}
