@@ -1,0 +1,30 @@
+.slider {
+  display: flex;
+  align-items: center;
+}
+
+.slider__window {
+  width: 250px;
+  overflow: hidden;
+}
+
+.slider__container {
+  display: flex;
+}
+
+.slider__item {
+  min-width: 250px;
+  height: 150px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider__item:nth-child(2n) {
+  background-color: aqua;
+}
+
+.slider__item:nth-child(2n + 1) {
+  background-color: bisque;
+}

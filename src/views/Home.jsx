@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 //api
 import { API } from "../services";
+//component
+import { Slider } from "../components/Slider";
 
 const cityesId = ["2643743", "524894", "1816670", "5128638", "2988506"];
 
@@ -26,11 +28,7 @@ export const Home = () => {
   return (
     <div>
       <p>Welcome</p>
-      <ul>
-        {data.map((item) => {
-          return <li key={item.name}>{item.name}</li>;
-        })}
-      </ul>
+      <Slider />
     </div>
   );
 };

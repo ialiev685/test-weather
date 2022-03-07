@@ -1,0 +1,18 @@
+.arrow {
+  display: flex;
+  align-items: center;
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 50%;
+  border: none;
+}
+
+.arrow__icom {
+  transform: rotate(-90deg);
+}
+
+.arrow__icom.arrow__right {
+  transform: rotate(90deg);
+}
