@@ -1,23 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 //style
 import style from "./Slider.module.css";
 //component
 import { ArrowSlider } from "../ArrowSlider";
+import { DotsSlider } from "../DotsSlider";
+import { ItemSlider } from "../ItemSlider";
+
+const cityesName = ["London", "Moscow", "Beijing", "New York", "Paris"];
 
 export const Slider = ({ data }) => {
   const [offSet, setOffset] = useState(0);
 
+  const ref = useRef();
+
+  const handleNextLeft = () => {
+    setOffset((prevState) => {
+      const newOffset = prevState + 250;
+      const maxOffset = 0;
+      return Math.min(newOffset, maxOffset);
+    });
+  };
+
+  const handleNextRight = () => {
+    setOffset((prevState) => {
+      const newOffset = prevState - 250;
+      const maxOffset = -(250 * (cityesName.length - 1));
+
+      return Math.max(newOffset, maxOffset);
+    });
+  };
+
+  // console.log(ref.current?.children[0].clientWidth);
+  console.log(data);
   return (
-    <div className={style.slider}>
-      <ArrowSlider />
-      <div className={style.slider__window}>
-        <div className={style.slider__container}>
-          <div className={style.slider__item}>item 1</div>
-          <div className={style.slider__item}>item 2</div>
-          <div className={style.slider__item}>item 3</div>
+    <>
+      <div className={style.slider}>
+        <ArrowSlider onClick={handleNextLeft} />
+        <div className={style.slider__window}>
+          <div
+            ref={ref}
+            className={style.slider__container}
+            style={{ transform: `translate(${offSet}px)` }}
+          >
+            {data.length !== 0 ? (
+              <ItemSlider data={data} />
+            ) : (
+              <div className={style.slider__item}>Not found</div>
+            )}
+          </div>
         </div>
+        <ArrowSlider orientation={"right"} onClick={handleNextRight} />
       </div>
-      <ArrowSlider orientation={"right"} />
-    </div>
+      <DotsSlider count={7} />
+    </>
   );
 };

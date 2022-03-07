@@ -1,0 +1,10 @@
+.itemSlider {
+  min-width: 250px;
+  height: 150px;
+
+  padding: 10px;
+}
+
+.itemSlider__title {
+  text-align: center;
+}

@@ -7,10 +7,14 @@
 
   border-radius: 50%;
   border: none;
+
+  cursor: pointer;
 }
 
 .arrow__icom {
   transform: rotate(-90deg);
+
+  fill: var(--color-silver);
 }
 
 .arrow__icom.arrow__right {

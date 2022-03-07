@@ -1,0 +1,22 @@
+.dots {
+}
+
+.dots__list {
+  display: flex;
+  justify-content: center;
+}
+
+.dots__item {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background-color: var(--color-silver);
+
+  cursor: pointer;
+}
+
+.dots__item:not(:last-child) {
+  margin-right: 5px;
+}
