@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext(null);
 
@@ -68,11 +68,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   const currentUser = () => {
-    const dataStorage = localStorage.getItem("currentUser");
+    const curUserStorage = localStorage.getItem("currentUser");
+    const dataStorage = localStorage.getItem("users");
 
     if (dataStorage === null) return 401; //не авторизирован
 
-    const checkUser = checkHaveUser({ email: dataStorage }, dataStorage);
+    const checkUser = checkHaveUser({ email: curUserStorage }, dataStorage);
 
     if (checkUser) {
       if (checkUser.signin) {
@@ -84,6 +85,11 @@ export const AuthProvider = ({ children }) => {
     return 404;
   };
 
+  useEffect(() => {
+    currentUser();
+  }, []);
+
+  console.log(user);
   const value = {
     signUp,
     signIn,
