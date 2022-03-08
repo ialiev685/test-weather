@@ -18,6 +18,10 @@
   font-size: 18px;
 }
 
+.wrapperControl__control:focus {
+  border-color: var(--color-purple);
+}
+
 .wrapperControl__error {
   position: absolute;
   bottom: -15px;

@@ -24,7 +24,7 @@ export const Slider = ({ data }) => {
   const handleNextRight = () => {
     setOffset((prevState) => {
       const newOffset = prevState - 250;
-      const maxOffset = -(250 * (cityesName.length - 1));
+      const maxOffset = -(250 * (data.length - 1));
 
       return Math.max(newOffset, maxOffset);
     });

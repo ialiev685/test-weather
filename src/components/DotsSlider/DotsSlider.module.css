@@ -1,9 +1,11 @@
 .dots {
+  margin-bottom: 20px;
 }
 
 .dots__list {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .dots__item {
@@ -12,7 +14,7 @@
 
   border-radius: 50%;
 
-  background-color: var(--color-silver);
+  background-color: var(--color-purple2);
 
   cursor: pointer;
 }

@@ -5,6 +5,8 @@ const API_KEY_IMAGE = "22163812-fdf68a623e9a64649f570bea3";
 
 const BASE_URL_WEATHER = "http://api.openweathermap.org/data/2.5/weather";
 const BASE_URL_IMAGE = "https://pixabay.com/api/";
+const BASE_URL_COOR = "https://api.openweathermap.org/geo/1.0/direct";
+const BASE_URL_WEATHER_COOR = "https://api.openweathermap.org/data/2.5/weather";
 
 //api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}";
 //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
@@ -23,7 +25,7 @@ const fetchData = async (index) => {
     `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${cityesName[index]}&page=1&per_page=3`
   );
   result.data.image = resultImage.data.hits[0].webformatURL;
-  console.log(result);
+
   arrayDataDefault.push(result);
   return result;
 };
@@ -36,7 +38,6 @@ export const fetchWeatherDefault = () => {
       const result = await fetchData(countFetch);
 
       if (!result?.data) {
-        console.log(result);
         clearInterval(intervalFetch);
         reject(result);
       }
@@ -49,10 +50,33 @@ export const fetchWeatherDefault = () => {
   });
 };
 
-export const fetchPhotoCity = async () => {
-  const result = await axios.get(
-    `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=london&page=1&per_page=3`
+export const fetchAddCity = async (name) => {
+  const resultCoor = await axios.get(
+    `${BASE_URL_COOR}?q=${name}&lang=ru&limit=2&appid=${API_KEY_WEATHER}`
   );
 
-  return result;
+  if (!resultCoor?.data[0]) return resultCoor;
+
+  const { lat, lon } = resultCoor?.data[0];
+
+  const resultCity = await axios.get(
+    `${BASE_URL_WEATHER_COOR}?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY_WEATHER}`
+  );
+
+  if (!resultCity?.data?.name) return resultCity;
+
+  const { name: value } = resultCity?.data;
+
+  const resultImage = await axios.get(
+    `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${value}&page=1&per_page=3`
+  );
+  resultCity.data.image = resultImage.data.hits[0].webformatURL;
+  console.log(resultCity);
+  //
+  return resultCity;
+
+  // result.data.image = resultImage.data.hits[0].webformatURL;
+  // console.log(result);
+  // arrayDataDefault.push(result);
+  // return result;
 };

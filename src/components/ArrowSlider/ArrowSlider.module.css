@@ -9,12 +9,13 @@
   border: none;
 
   cursor: pointer;
+  background-color: var(--color-white);
 }
 
 .arrow__icom {
   transform: rotate(-90deg);
 
-  fill: var(--color-silver);
+  fill: var(--color-purple2);
 }
 
 .arrow__icom.arrow__right {

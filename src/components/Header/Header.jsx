@@ -21,7 +21,7 @@ export const Header = () => {
             type="button"
             onClick={() => signOut()}
           >
-            Выйти
+            Exit
           </button>
         </div>
       </Container>
