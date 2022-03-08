@@ -15,7 +15,6 @@ import {
   PasswordControl,
 } from "../../components/InputControl";
 import { Button } from "../../components/Button";
-import { Container } from "../../components/Container";
 
 const schema = yup.object().shape({
   login: yup.string().required("Поле не должно быть пустым"),
@@ -35,41 +34,40 @@ export const SignUp = () => {
   return (
     <div className={style.wrapperForm}>
       <ToastContainer />
-      <Container>
-        <h1 className={style.wrapperForm__title}>Регистрация</h1>
-        <Formik
-          initialValues={{ login: "", email: "", password: "" }}
-          validationSchema={schema}
-          onSubmit={(values, actions) => {
-            const result = signUp(values);
-            const message =
-              result === 201
-                ? "Вы зарегестрированы!"
-                : "Такой пользователь уже существует.";
-            toast.info(message, {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-          }}
-        >
-          {(props) => (
-            <form onSubmit={props.handleSubmit}>
-              <EmailControl props={props} />
-              <LoginControl props={props} />
-              <PasswordControl props={props} />
-              <Button caption={"Регистрация"} />
-            </form>
-          )}
-        </Formik>
-        <p className={style.wrapperForm__link}>
-          Имеется логин? <Link to="/signin">Войти</Link>{" "}
-        </p>
-      </Container>
+
+      <h1 className={style.wrapperForm__title}>Регистрация</h1>
+      <Formik
+        initialValues={{ login: "", email: "", password: "" }}
+        validationSchema={schema}
+        onSubmit={(values, actions) => {
+          const result = signUp(values);
+          const message =
+            result === 201
+              ? "Вы зарегестрированы!"
+              : "Такой пользователь уже существует.";
+          toast.info(message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }}
+      >
+        {(props) => (
+          <form onSubmit={props.handleSubmit}>
+            <EmailControl props={props} />
+            <LoginControl props={props} />
+            <PasswordControl props={props} />
+            <Button caption={"Регистрация"} />
+          </form>
+        )}
+      </Formik>
+      <p className={style.wrapperForm__link}>
+        Имеется логин? <Link to="/signin">Войти</Link>{" "}
+      </p>
     </div>
   );
 };

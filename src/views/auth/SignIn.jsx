@@ -11,7 +11,6 @@ import style from "./AuthStyles.module.css";
 //components
 import { EmailControl, PasswordControl } from "../../components/InputControl";
 import { Button } from "../../components/Button";
-import { Container } from "../../components/Container";
 
 const schema = yup.object().shape({
   email: yup
@@ -30,41 +29,38 @@ export const SignIn = () => {
   return (
     <div className={style.wrapperForm}>
       <ToastContainer />
-      <Container>
-        <h1 className={style.wrapperForm__title}>Войти</h1>
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          validationSchema={schema}
-          onSubmit={(values, actions) => {
-            const result = signIn(values);
 
-            const message =
-              result === 200
-                ? "Вы вошли успешно!"
-                : "Неверный логин или пароль!";
-            toast.info(message, {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-          }}
-        >
-          {(props) => (
-            <form onSubmit={props.handleSubmit}>
-              <EmailControl props={props} />
-              <PasswordControl props={props} />
-              <Button caption={"Войти"} />
-            </form>
-          )}
-        </Formik>
-        <p className={style.wrapperForm__link}>
-          Не зарегестрирован? <Link to="/signup">Регистрация</Link>
-        </p>
-      </Container>
+      <h1 className={style.wrapperForm__title}>Войти</h1>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={schema}
+        onSubmit={(values, actions) => {
+          const result = signIn(values);
+
+          const message =
+            result === 200 ? "Вы вошли успешно!" : "Неверный логин или пароль!";
+          toast.info(message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }}
+      >
+        {(props) => (
+          <form onSubmit={props.handleSubmit}>
+            <EmailControl props={props} />
+            <PasswordControl props={props} />
+            <Button caption={"Войти"} />
+          </form>
+        )}
+      </Formik>
+      <p className={style.wrapperForm__link}>
+        Не зарегестрирован? <Link to="/signup">Регистрация</Link>
+      </p>
     </div>
   );
 };

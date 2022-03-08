@@ -23,6 +23,7 @@ const fetchData = async (index) => {
     `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${cityesName[index]}&page=1&per_page=3`
   );
   result.data.image = resultImage.data.hits[0].webformatURL;
+  console.log(result);
   arrayDataDefault.push(result);
   return result;
 };
@@ -44,7 +45,7 @@ export const fetchWeatherDefault = () => {
         clearInterval(intervalFetch);
         resolve(arrayDataDefault);
       }
-    }, 500);
+    }, 700);
   });
 };
 

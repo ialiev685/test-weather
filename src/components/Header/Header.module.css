@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: center;
+
+  height: 60px;
+  width: 100%;
+
+  border-bottom: 1px solid var(--color-white);
+  margin-bottom: 30px;
+}
+
+.header__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  color: var(--color-purple2);
+}
+
+.header__button {
+  outline: none;
+  border: none;
+
+  background-color: transparent;
+
+  color: var(--color-white);
+}

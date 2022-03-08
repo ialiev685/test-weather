@@ -5,8 +5,6 @@ import style from "./Slider.module.css";
 import { ArrowSlider } from "../ArrowSlider";
 import { DotsSlider } from "../DotsSlider";
 import { ItemSlider } from "../ItemSlider";
-//api
-import { API } from "../../services";
 
 const cityesName = ["London", "Moscow", "Beijing", "New York", "Paris"];
 
@@ -14,11 +12,6 @@ export const Slider = ({ data }) => {
   const [offSet, setOffset] = useState(0);
 
   const ref = useRef();
-
-  useEffect(() => {
-    // API.fetchPhotoCity();
-    //
-  }, []);
 
   const handleNextLeft = () => {
     setOffset((prevState) => {

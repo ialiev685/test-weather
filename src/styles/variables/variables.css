@@ -1,9 +1,13 @@
 :root {
   --color-white: #ffffff;
   --color-purple: rgb(107, 107, 233);
+  --color-purple2: #5864b9;
   --color-silver: rgb(161, 161, 172);
   --color-silver-light: rgb(212, 212, 212);
   --color-red: rgb(255, 0, 0);
   --color-shadow: rgba(34, 60, 80, 0.2);
   --color-black: #000000;
+  --color-black-transparent: rgba(0, 0, 0, 0.4);
+  --color-orange1: #ffdfa8;
+  --color-orange2: #ffba42;
 }

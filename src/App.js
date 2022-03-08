@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./provider";
 //components
 import { GuestLayout } from "./components/GuestLayout";
+import { AuthorizedLayout } from "./components/AuthorizedLayout";
 import { SignUp, SignIn, Home } from "./views";
 
 //style
@@ -14,14 +15,14 @@ function App() {
 
   if (user) {
     return (
-      <GuestLayout>
+      <AuthorizedLayout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Navigate to="/" />} />
           <Route path="/signup" element={<Navigate to="/" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </GuestLayout>
+      </AuthorizedLayout>
     );
   }
 

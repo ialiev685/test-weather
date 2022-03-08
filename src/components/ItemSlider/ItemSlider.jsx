@@ -9,11 +9,13 @@ export const ItemSlider = ({ data }) => {
       <div
         key={index}
         className={style.itemSlider}
-        style={
-          {
-            // backgroundImage: `url(${image})`,
-          }
-        }
+        style={{
+          backgroundImage: `linear-gradient(
+            to right,
+            var(--color-black-transparent),
+            var(--color-black-transparent)
+          ), url(${image})`,
+        }}
       >
         <h2 className={style.itemSlider__title}>{name}</h2>
         <p>temperature: {Math.round(main.temp)} °C</p>

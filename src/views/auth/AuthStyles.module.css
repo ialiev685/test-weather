@@ -1,9 +1,11 @@
 .wrapperForm {
-  width: 320px;
-
   border: 1px solid var(--color-silver-light);
 
   border-radius: 5px;
+
+  padding: 20px 10px;
+
+  width: 100%;
 }
 
 .wrapperForm__title {

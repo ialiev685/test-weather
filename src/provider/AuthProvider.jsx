@@ -67,6 +67,31 @@ export const AuthProvider = ({ children }) => {
     return 401; //не авторизирован
   };
 
+  const signOut = () => {
+    const curUserStorage = localStorage.getItem("currentUser");
+    const dataStorage = localStorage.getItem("users");
+
+    const checkUser = checkHaveUser({ email: curUserStorage }, dataStorage);
+
+    if (checkUser) {
+      const dataStorageParse = JSON.parse(dataStorage);
+
+      const dataStorageUpdate = dataStorageParse.map((item) => {
+        if (item.email === curUserStorage) return { ...item, signin: false };
+        return item;
+      });
+
+      const dataJson = JSON.stringify(dataStorageUpdate);
+
+      localStorage.setItem("users", dataJson);
+      localStorage.removeItem("currentUser");
+
+      setUser(null);
+      return 200;
+    }
+    return 404; // не найдено
+  };
+
   const currentUser = () => {
     const curUserStorage = localStorage.getItem("currentUser");
     const dataStorage = localStorage.getItem("users");
@@ -92,6 +117,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     signUp,
     signIn,
+    signOut,
     user,
     setUser,
     currentUser,
