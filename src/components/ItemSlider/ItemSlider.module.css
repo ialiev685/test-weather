@@ -3,6 +3,12 @@
   height: 150px;
 
   padding: 10px;
+
+  /* background-size: cover; */
+
+  color: var(--color-white);
+
+  font-size: 18px;
 }
 
 .itemSlider__title {

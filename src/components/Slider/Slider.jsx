@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 //style
 import style from "./Slider.module.css";
 //component
 import { ArrowSlider } from "../ArrowSlider";
 import { DotsSlider } from "../DotsSlider";
 import { ItemSlider } from "../ItemSlider";
+//api
+import { API } from "../../services";
 
 const cityesName = ["London", "Moscow", "Beijing", "New York", "Paris"];
 
@@ -12,6 +14,11 @@ export const Slider = ({ data }) => {
   const [offSet, setOffset] = useState(0);
 
   const ref = useRef();
+
+  useEffect(() => {
+    // API.fetchPhotoCity();
+    //
+  }, []);
 
   const handleNextLeft = () => {
     setOffset((prevState) => {
@@ -30,7 +37,14 @@ export const Slider = ({ data }) => {
     });
   };
 
+  const handleClickDot = (index) => {
+    const newOffset = -index * 250;
+
+    setOffset(newOffset);
+  };
+
   // console.log(ref.current?.children[0].clientWidth);
+  ////
   console.log(data);
   return (
     <>
@@ -51,7 +65,11 @@ export const Slider = ({ data }) => {
         </div>
         <ArrowSlider orientation={"right"} onClick={handleNextRight} />
       </div>
-      <DotsSlider count={7} />
+      {data.length !== 0 ? (
+        <DotsSlider onClick={handleClickDot} count={data.length} />
+      ) : (
+        ""
+      )}
     </>
   );
 };

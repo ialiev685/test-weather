@@ -9,12 +9,15 @@ import { Slider } from "../components/Slider";
 export const Home = () => {
   const [data, setData] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
+  const [images, setImages] = useState([]);
 
   const fetchWeatherDefault = async () => {
     setIsLoad(true);
-    const result = await API.fetchWeatherDefault();
-    console.log(result);
-    setData((prevState) => [...prevState, ...result]);
+    const resultData = await API.fetchWeatherDefault();
+    console.log(resultData);
+
+    // const resultImages = await API.fetchPhotoCity();
+    setData((prevState) => [...prevState, ...resultData]);
     setIsLoad(false);
   };
 
