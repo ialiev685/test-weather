@@ -10,8 +10,6 @@ export const ItemSlider = ({ data }) => {
   const navigate = useNavigate();
 
   const handleOpenDetalis = (index) => {
-    console.log("index", index);
-
     navigate("/detalis", { state: { data: data[index].data } });
   };
 

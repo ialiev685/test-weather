@@ -9,6 +9,8 @@ const checkHaveUser = (values, dataStorage) => {
   return result;
 };
 
+const cityesId = ["2643743", "524894", "1816670", "5128638", "2988506"];
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
@@ -17,6 +19,7 @@ export const AuthProvider = ({ children }) => {
 
     if (dataStorage === null) {
       values.signin = false;
+      values.citiesId = cityesId;
       const dataJson = JSON.stringify([values]);
       localStorage.setItem("users", dataJson);
       return 201; //user создан
@@ -110,6 +113,51 @@ export const AuthProvider = ({ children }) => {
     return 404;
   };
 
+  const deleteCity = (index) => {
+    const dataStorage = localStorage.getItem("users");
+
+    if (dataStorage === null) return 401; //не авторизирован
+
+    const dataStorageParse = JSON.parse(dataStorage);
+
+    const dataStorageUpdate = dataStorageParse.map((item) => {
+      if (item.email === user.email) {
+        item.citiesId.splice(index, 1);
+        return { ...item, cityesId: item.citiesId };
+      }
+      return item;
+    });
+
+    const dataJson = JSON.stringify(dataStorageUpdate);
+
+    localStorage.setItem("users", dataJson);
+    console.log(user);
+    return 200;
+  };
+
+  const addCity = (id) => {
+    const dataStorage = localStorage.getItem("users");
+
+    if (dataStorage === null) return 401; //не авторизирован
+
+    const dataStorageParse = JSON.parse(dataStorage);
+
+    const dataStorageUpdate = dataStorageParse.map((item) => {
+      if (item.email === user.email) {
+        const newCitiesId = item.citiesId.push(String(id));
+
+        return { ...item, cityesId: newCitiesId };
+      }
+      return item;
+    });
+
+    const dataJson = JSON.stringify(dataStorageUpdate);
+
+    localStorage.setItem("users", dataJson);
+    console.log(user);
+    return 200;
+  };
+
   useEffect(() => {
     currentUser();
   }, []);
@@ -121,6 +169,8 @@ export const AuthProvider = ({ children }) => {
     user,
     setUser,
     currentUser,
+    addCity,
+    deleteCity,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -6,8 +6,6 @@ import { ArrowSlider } from "../ArrowSlider";
 import { DotsSlider } from "../DotsSlider";
 import { ItemSlider } from "../ItemSlider";
 
-const cityesName = ["London", "Moscow", "Beijing", "New York", "Paris"];
-
 export const Slider = ({ data }) => {
   const [offSet, setOffset] = useState(0);
 
@@ -38,7 +36,7 @@ export const Slider = ({ data }) => {
 
   // console.log(ref.current?.children[0].clientWidth);
   ////
-  console.log(data);
+
   return (
     <>
       <div className={style.slider}>

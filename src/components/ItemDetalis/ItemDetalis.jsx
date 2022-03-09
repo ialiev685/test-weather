@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 //defaultImage
 import defaultImage from "../../images/no-image-large.jpg";
 //style
@@ -6,8 +6,44 @@ import style from "./ItemDetalis.module.css";
 //icons
 import { ReactComponent as FavouritesIcon } from "./star.svg";
 import { ReactComponent as DeleteIcon } from "./trash.svg";
+//provider
+import { AuthContext } from "../../provider";
+//route
+import { useNavigate } from "react-router-dom";
 
 export const ItemDetalis = ({ data }) => {
+  const [isFavourites, setIsFavourites] = useState(false);
+  const [curIndexItem, setCurIndexItem] = useState(null);
+
+  const { user, deleteCity, addCity, currentUser } = useContext(AuthContext);
+
+  const navigation = useNavigate();
+
+  const handleDeleteItemFromFavour = () => {
+    const result = deleteCity(curIndexItem);
+    if (result === 200) {
+      currentUser();
+      navigation("/");
+    }
+  };
+
+  const handleAddItemToFovour = (id) => {
+    const result = addCity(id);
+    if (result === 200) {
+      setIsFavourites(true);
+      currentUser();
+    }
+  };
+
+  useEffect(() => {
+    user.citiesId.forEach((item, index) => {
+      if (Number(item) === data.id) {
+        setIsFavourites(true);
+        setCurIndexItem(index);
+      }
+    });
+  }, [data.id, user.citiesId]);
+
   return (
     <div
       className={style.itemDetalis}
@@ -64,8 +100,25 @@ export const ItemDetalis = ({ data }) => {
         </tbody>
       </table>
       <div className={style.itemDetalis__control}>
-        <FavouritesIcon />
-        <DeleteIcon />
+        <FavouritesIcon
+          width={30}
+          height={20}
+          style={{
+            fill: isFavourites ? "var(--color-yellow)" : "var(--color-white)",
+            marginRight: "10px",
+          }}
+          onClick={() => {
+            if (!isFavourites) handleAddItemToFovour(data.id);
+          }}
+        />
+        <DeleteIcon
+          width={30}
+          height={20}
+          style={{ fill: "var(--color-white)" }}
+          onClick={() => {
+            if (isFavourites) handleDeleteItemFromFavour();
+          }}
+        />
       </div>
     </div>
   );

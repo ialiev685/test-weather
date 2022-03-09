@@ -11,42 +11,52 @@ const BASE_URL_WEATHER_FIND = "https://api.openweathermap.org/data/2.5/find";
 //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 //api.openweathermap.org/data/2.5/weather?id={city id}&appid={API key}
 
-const cityesName = ["London", "Moscow", "Beijing", "New York", "Paris"];
-const cityesId = ["2643743", "524894", "1816670", "5128638", "2988506"];
-
 let arrayDataDefault = [];
 
-const fetchData = async (index) => {
-  const result = await axios.get(
-    `${BASE_URL_WEATHER}?id=${cityesId[index]}&units=metric&appid=${API_KEY_WEATHER}`
+const fetchData = async (cityid) => {
+  const resultCity = await axios.get(
+    `${BASE_URL_WEATHER}?id=${cityid}&units=metric&appid=${API_KEY_WEATHER}`
   );
+  if (!resultCity?.data?.name) throw new Error("Not found");
+  const { name } = resultCity.data;
   const resultImage = await axios.get(
-    `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${cityesName[index]}&page=1&per_page=3`
+    `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${name}&page=1&per_page=3`
   );
-  result.data.image = resultImage.data.hits[0].webformatURL;
-  result.data.largeImage = resultImage.data.hits[0].largeImageURL;
-
-  arrayDataDefault.push(result);
-  return result;
+  if (!resultImage.data.hits[0]) {
+    resultCity.data.image = null;
+    resultCity.data.largeImage = null;
+  } else {
+    resultCity.data.image = resultImage.data.hits[0].webformatURL;
+    resultCity.data.largeImage = resultImage.data.hits[0].largeImageURL;
+  }
+  arrayDataDefault.push(resultCity);
+  return resultCity;
 };
 
-export const fetchWeatherDefault = () => {
+export const fetchWeatherDefault = (citiesId) => {
   return new Promise((resolve, reject) => {
     let countFetch = 0;
+
     arrayDataDefault = [];
+
+    let cityid = "";
+
     const intervalFetch = setInterval(async () => {
-      const result = await fetchData(countFetch);
+      cityid = citiesId[countFetch];
+      const result = await fetchData(cityid);
 
       if (!result?.data) {
         clearInterval(intervalFetch);
-        reject(result);
+
+        reject(new Error("Not found"));
       }
       countFetch += 1;
-      if (countFetch === 5) {
+      if (countFetch === citiesId.length) {
         clearInterval(intervalFetch);
+
         resolve(arrayDataDefault);
       }
-    }, 700);
+    }, 500);
   });
 };
 
@@ -55,14 +65,14 @@ export const fetchAddCity = async (name) => {
     `${BASE_URL_WEATHER_FIND}?q=${name}&units=metric&appid=${API_KEY_WEATHER}`
   );
 
-  if (!resultCity?.data?.list[0]) throw Error("Not Found");
+  if (!resultCity?.data?.list[0]) throw new Error("Not found");
 
   const { name: value } = resultCity.data.list[0];
 
   const resultImage = await axios.get(
     `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${value}&page=1&per_page=3`
   );
-  console.log(resultImage);
+
   if (!resultImage.data.hits[0]) {
     resultCity.data.list[0].image = null;
     resultCity.data.list[0].largeImage = null;
