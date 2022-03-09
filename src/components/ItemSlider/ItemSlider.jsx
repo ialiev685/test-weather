@@ -3,6 +3,8 @@ import React from "react";
 import style from "./ItemSlider.module.css";
 //route
 import { useNavigate } from "react-router-dom";
+//defaultImage
+import defaultImage from "../../images/no-image.jpg";
 
 export const ItemSlider = ({ data }) => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ export const ItemSlider = ({ data }) => {
 
   return data.map((item, index) => {
     const { main, name, weather, image } = item.data;
+
     return (
       <div
         onClick={() => handleOpenDetalis(index)}
@@ -22,10 +25,10 @@ export const ItemSlider = ({ data }) => {
         className={style.itemSlider}
         style={{
           backgroundImage: `linear-gradient(
-            to right,
-            var(--color-black-transparent),
-            var(--color-black-transparent)
-          ), url(${image})`,
+              to right,
+              var(--color-black-transparent),
+              var(--color-black-transparent)
+            ), url(${image ? image : defaultImage})`,
         }}
       >
         <h2 className={style.itemSlider__title}>{name}</h2>

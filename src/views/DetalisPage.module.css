@@ -13,29 +13,8 @@
   text-decoration: none;
 
   color: var(--color-white);
+  font-weight: 700;
 
   padding: 2px;
   margin-bottom: 20px;
-}
-
-.detalisPage__content {
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 600px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.detalisPage__title {
-  text-align: center;
-}
-
-.detalisPage__table {
-  padding: 10px;
-}
-
-.detalisPage__table td {
-  padding: 5px;
 }

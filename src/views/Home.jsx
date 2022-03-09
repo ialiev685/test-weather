@@ -4,6 +4,8 @@ import { API } from "../services";
 //component
 import { Slider } from "../components/Slider";
 import { SearchControl } from "../components/InputControl";
+//route
+import { useNavigate } from "react-router-dom";
 
 //style
 import style from "./Home.module.css";
@@ -13,6 +15,8 @@ export const Home = () => {
   const [data, setData] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
   const [query, setQuery] = useState("");
+
+  const navigation = useNavigate();
 
   const fetchWeatherDefault = async () => {
     setIsLoad(true);
@@ -29,8 +33,9 @@ export const Home = () => {
         if (name.trim() === "") return;
         const result = await API.fetchAddCity(name);
         console.log("home", result);
-        // if (result?.data.length === 0) return;
+
         setData((prevState) => [...prevState, { data: { ...result } }]);
+        if (result) navigation("detalis", { state: { data: result } });
       } catch (error) {
         console.log("catch", error.message);
       }

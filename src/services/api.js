@@ -64,8 +64,8 @@ export const fetchAddCity = async (name) => {
   );
   console.log(resultImage);
   if (!resultImage.data.hits[0]) {
-    resultCity.data.list[0].image = "../images/no-image.jpg";
-    resultCity.data.list[0].largeImage = "../images/no-image.jpg";
+    resultCity.data.list[0].image = null;
+    resultCity.data.list[0].largeImage = null;
   } else {
     resultCity.data.list[0].image = resultImage.data.hits[0].webformatURL;
     resultCity.data.list[0].largeImage = resultImage.data.hits[0].largeImageURL;

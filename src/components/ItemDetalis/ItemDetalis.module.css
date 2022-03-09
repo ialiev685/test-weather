@@ -1,0 +1,33 @@
+.itemDetalis {
+  position: relative;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 550px;
+  max-width: 800px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.itemDetalis__title {
+  text-align: center;
+}
+
+.itemDetalis__table {
+  padding: 10px;
+}
+
+.itemDetalis__table td {
+  padding: 5px;
+}
+
+.itemDetalis__table th {
+  color: transparent;
+}
+
+.itemDetalis__control {
+  position: absolute;
+}
