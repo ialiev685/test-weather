@@ -29,8 +29,9 @@ export const Home = () => {
         console.log(name);
         if (name.trim() === "") return;
         const result = await API.fetchAddCity(name);
-        if (result?.data.length === 0) return;
-        setData((prevState) => [...prevState, result]);
+        console.log("home", result);
+        // if (result?.data.length === 0) return;
+        // setData((prevState) => [...prevState, result]);
       } catch (error) {
         console.log(error.message);
       }
@@ -45,8 +46,6 @@ export const Home = () => {
   }, [data.length]);
 
   useEffect(() => {
-    // if (query.trim() === "") return;
-    console.log(query);
     fetchAddCity(query);
   }, [fetchAddCity, query]);
 
