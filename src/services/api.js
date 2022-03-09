@@ -5,7 +5,6 @@ const API_KEY_IMAGE = "22163812-fdf68a623e9a64649f570bea3";
 
 const BASE_URL_WEATHER = "http://api.openweathermap.org/data/2.5/weather";
 const BASE_URL_IMAGE = "https://pixabay.com/api/";
-const BASE_URL_COOR = "https://api.openweathermap.org/geo/1.0/direct";
 const BASE_URL_WEATHER_FIND = "https://api.openweathermap.org/data/2.5/find";
 
 //api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}";
@@ -25,6 +24,7 @@ const fetchData = async (index) => {
     `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${cityesName[index]}&page=1&per_page=3`
   );
   result.data.image = resultImage.data.hits[0].webformatURL;
+  result.data.largeImage = resultImage.data.hits[0].largeImageURL;
 
   arrayDataDefault.push(result);
   return result;
@@ -51,33 +51,25 @@ export const fetchWeatherDefault = () => {
 };
 
 export const fetchAddCity = async (name) => {
-  const resultCoor = await axios.get(
+  const resultCity = await axios.get(
     `${BASE_URL_WEATHER_FIND}?q=${name}&units=metric&appid=${API_KEY_WEATHER}`
   );
-  //
-  console.log(resultCoor);
 
-  // const resultCoor = await axios.get(
-  //   `${BASE_URL_COOR}?q=${name}&lang=ru&limit=2&appid=${API_KEY_WEATHER}`
-  // );
+  if (!resultCity?.data?.list[0]) throw Error("Not Found");
 
-  // if (!resultCoor?.data[0]) return resultCoor;
+  const { name: value } = resultCity.data.list[0];
 
-  // const { lat, lon } = resultCoor?.data[0];
+  const resultImage = await axios.get(
+    `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${value}&page=1&per_page=3`
+  );
+  console.log(resultImage);
+  if (!resultImage.data.hits[0]) {
+    resultCity.data.list[0].image = "../images/no-image.jpg";
+    resultCity.data.list[0].largeImage = "../images/no-image.jpg";
+  } else {
+    resultCity.data.list[0].image = resultImage.data.hits[0].webformatURL;
+    resultCity.data.list[0].largeImage = resultImage.data.hits[0].largeImageURL;
+  }
 
-  // const resultCity = await axios.get(
-  //   `${BASE_URL_WEATHER}?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY_WEATHER}`
-  // );
-
-  // if (!resultCity?.data?.name) return resultCity;
-
-  // const { name: value } = resultCity?.data;
-
-  // const resultImage = await axios.get(
-  //   `${BASE_URL_IMAGE}?key=${API_KEY_IMAGE}&q=${value}&page=1&per_page=3`
-  // );
-  // resultCity.data.image = resultImage.data.hits[0].webformatURL;
-  // console.log(resultCity);
-  // //
-  // return resultCity;
+  return resultCity.data.list[0];
 };

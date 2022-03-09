@@ -10,7 +10,6 @@ import { Container } from "../../components/Container";
 export const Header = () => {
   const { user, signOut } = useContext(AuthContext);
 
-  console.log(user);
   return (
     <div className={style.header}>
       <Container>

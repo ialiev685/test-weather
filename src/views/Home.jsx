@@ -17,7 +17,7 @@ export const Home = () => {
   const fetchWeatherDefault = async () => {
     setIsLoad(true);
     const resultData = await API.fetchWeatherDefault();
-    console.log(resultData);
+    console.log("default", resultData);
 
     setData((prevState) => [...prevState, ...resultData]);
     setIsLoad(false);
@@ -26,14 +26,13 @@ export const Home = () => {
   const fetchAddCity = useCallback(
     debounce(async (name) => {
       try {
-        console.log(name);
         if (name.trim() === "") return;
         const result = await API.fetchAddCity(name);
         console.log("home", result);
         // if (result?.data.length === 0) return;
-        // setData((prevState) => [...prevState, result]);
+        setData((prevState) => [...prevState, { data: { ...result } }]);
       } catch (error) {
-        console.log(error.message);
+        console.log("catch", error.message);
       }
     }, 1000),
     []
@@ -42,7 +41,6 @@ export const Home = () => {
   useEffect(() => {
     if (data.length !== 0) return;
     fetchWeatherDefault();
-    ////////////
   }, [data.length]);
 
   useEffect(() => {

@@ -5,10 +5,13 @@
   padding: 10px;
 
   background-size: cover;
+  background-repeat: no-repeat;
 
   color: var(--color-white);
 
   font-size: 16px;
+
+  cursor: pointer;
 }
 
 .itemSlider__title {
