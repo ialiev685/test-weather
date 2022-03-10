@@ -3,7 +3,7 @@ const axios = require("axios");
 const API_KEY_WEATHER = process.env.REACT_APP_KEY_WEATHER || "";
 const API_KEY_IMAGE = "22163812-fdf68a623e9a64649f570bea3";
 
-const BASE_URL_WEATHER = "http://api.openweathermap.org/data/2.5/weather";
+const BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/weather";
 const BASE_URL_IMAGE = "https://pixabay.com/api/";
 const BASE_URL_WEATHER_FIND = "https://api.openweathermap.org/data/2.5/find";
 
