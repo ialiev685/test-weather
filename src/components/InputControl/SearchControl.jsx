@@ -14,9 +14,6 @@ export const SearchControl = ({ onChange, value }) => {
         value={value}
         name="search"
       />
-      {/* {props.errors.login && (
-        <div className={style.wrapperControl__error}>{props.errors.login}</div>
-      )} */}
     </div>
   );
 };

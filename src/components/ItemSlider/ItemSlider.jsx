@@ -30,8 +30,10 @@ export const ItemSlider = ({ data }) => {
         }}
       >
         <h2 className={style.itemSlider__title}>{name}</h2>
-        <p>temperature: {Math.round(main.temp)} °C</p>
-        <p>weather: {weather[0].description}</p>
+        <div>
+          <p>temperature: {Math.round(main.temp)} °C</p>
+          <p>weather: {weather[0].description}</p>
+        </div>
       </div>
     );
   });

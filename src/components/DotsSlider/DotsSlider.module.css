@@ -22,3 +22,14 @@
 .dots__item:not(:last-child) {
   margin-right: 7px;
 }
+
+@media (min-width: 768px) {
+  .dots__item {
+    width: 10px;
+    height: 10px;
+  }
+
+  .dots__item:not(:last-child) {
+    margin-right: 9px;
+  }
+}

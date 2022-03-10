@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //api
 import { API } from "../services";
 //component
@@ -11,6 +13,17 @@ import { AuthContext } from "../provider";
 //style
 import style from "./Home.module.css";
 const debounce = require("lodash.debounce");
+
+const notify = (message) =>
+  toast.error(message, {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
 
 export const Home = () => {
   const [data, setData] = useState([]);
@@ -25,15 +38,17 @@ export const Home = () => {
     try {
       setIsLoad(true);
       const resultData = await API.fetchWeatherDefault(citiesId);
-      console.log("default", resultData);
+      // console.log("default", resultData);
 
       setData((prevState) => [...prevState, ...resultData]);
       setIsLoad(false);
     } catch (error) {
-      console.log(error.message);
+      // console.log("catch", error.message);
+      notify(error.message);
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchAddCity = useCallback(
     debounce(async (name) => {
       try {
@@ -43,7 +58,8 @@ export const Home = () => {
         setData((prevState) => [...prevState, { data: { ...result } }]);
         if (result) navigation("detalis", { state: { data: result } });
       } catch (error) {
-        console.log("catch", error.message);
+        // console.log("catch", error.message);
+        notify(error.message);
       }
     }, 1000),
     []
@@ -61,6 +77,7 @@ export const Home = () => {
 
   return (
     <div className={style.homePage}>
+      <ToastContainer />
       {isLoad ? (
         <p className={style.homePage__text}>...loading</p>
       ) : (

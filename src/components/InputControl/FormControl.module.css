@@ -18,6 +18,12 @@
   font-size: 18px;
 }
 
+@media (min-width: 768px) {
+  .wrapperControl {
+    width: 320px;
+  }
+}
+
 .wrapperControl__control:focus {
   border-color: var(--color-purple);
 }

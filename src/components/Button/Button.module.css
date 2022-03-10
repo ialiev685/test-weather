@@ -19,3 +19,9 @@
 
   box-shadow: 4px 4px 11px 2px var(--color-shadow);
 }
+
+@media (min-width: 768px) {
+  .button {
+    width: 320px;
+  }
+}

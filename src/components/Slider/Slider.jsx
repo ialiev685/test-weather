@@ -8,12 +8,13 @@ import { ItemSlider } from "../ItemSlider";
 
 export const Slider = ({ data }) => {
   const [offSet, setOffset] = useState(0);
+  const [widthSlide, setWidthSlide] = useState(0);
 
   const ref = useRef();
 
   const handleNextLeft = () => {
     setOffset((prevState) => {
-      const newOffset = prevState + 250;
+      const newOffset = prevState + widthSlide;
       const maxOffset = 0;
       return Math.min(newOffset, maxOffset);
     });
@@ -21,21 +22,42 @@ export const Slider = ({ data }) => {
 
   const handleNextRight = () => {
     setOffset((prevState) => {
-      const newOffset = prevState - 250;
-      const maxOffset = -(250 * (data.length - 1));
+      const newOffset = prevState - widthSlide;
+      const maxOffset = -(widthSlide * (data.length - 1));
 
       return Math.max(newOffset, maxOffset);
     });
   };
 
   const handleClickDot = (index) => {
-    const newOffset = -index * 250;
+    const newOffset = -index * widthSlide;
 
     setOffset(newOffset);
   };
 
-  // console.log(ref.current?.children[0].clientWidth);
-  ////
+  const handleResizeWindow = (e) => {
+    const widthCur = e.target.outerWidth;
+    let widthEl;
+    if (widthCur >= 768) {
+      widthEl = ref.current?.children[0].clientWidth;
+      setWidthSlide(widthEl);
+      setOffset(0);
+    }
+    if (widthCur < 768) {
+      widthEl = ref.current?.children[0].clientWidth;
+      setWidthSlide(widthEl);
+      setOffset(0);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResizeWindow);
+    const width = ref.current?.children[0].clientWidth;
+    setWidthSlide(width);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
 
   return (
     <>

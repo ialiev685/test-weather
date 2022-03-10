@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+//route
+import { useNavigate } from "react-router-dom";
 //provider
 import { AuthContext } from "../../provider";
 //style
@@ -17,7 +19,7 @@ import {
 import { Button } from "../../components/Button";
 
 const schema = yup.object().shape({
-  login: yup.string().required("Поле не должно быть пустым"),
+  login: yup.string().trim().required("Поле не должно быть пустым"),
   email: yup
     .string()
     .email("email не валидный")
@@ -30,6 +32,8 @@ const schema = yup.object().shape({
 
 export const SignUp = () => {
   const { signUp } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   return (
     <div className={style.wrapperForm}>
@@ -54,6 +58,10 @@ export const SignUp = () => {
             draggable: true,
             progress: undefined,
           });
+          if (result === 201) {
+            actions.resetForm();
+            navigate("/signin");
+          }
         }}
       >
         {(props) => (

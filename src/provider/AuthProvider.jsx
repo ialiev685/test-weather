@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
     const dataJson = JSON.stringify(dataStorageUpdate);
 
     localStorage.setItem("users", dataJson);
-    console.log(user);
+
     return 200;
   };
 
@@ -154,7 +154,7 @@ export const AuthProvider = ({ children }) => {
     const dataJson = JSON.stringify(dataStorageUpdate);
 
     localStorage.setItem("users", dataJson);
-    console.log(user);
+
     return 200;
   };
 

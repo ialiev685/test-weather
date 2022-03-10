@@ -9,8 +9,6 @@ import { ItemDetalis } from "../components/ItemDetalis";
 export const DetalisPage = () => {
   const location = useLocation();
 
-  console.log(location);
-
   const { data } = location.state;
 
   return (

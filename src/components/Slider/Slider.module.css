@@ -12,6 +12,7 @@
 
 .slider__container {
   display: flex;
+  transition: 250ms;
 }
 
 .slider__item {
@@ -21,6 +22,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .slider__window {
+    width: 700px;
+  }
+
+  .slider__item {
+    min-width: 350px;
+    height: 250px;
+  }
 }
 
 .slider__item:nth-child(2n) {
